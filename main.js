@@ -21,6 +21,11 @@ var webpack = require("webpack");
 
 var compiler = webpack({
   entry: './frontend/main.js',
+  module: {
+      loaders: [
+        { test: /\.js$/, loader: 'jsx-loader' }
+      ]
+    },
   output: { path: '/' }
 });
 
