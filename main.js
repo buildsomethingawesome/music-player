@@ -16,5 +16,15 @@ router.post('/play', function() {
 app.use('/api', router);
 app.use('/', express.static('public'));
 
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var webpack = require("webpack");
+
+var compiler = webpack({
+  entry: './frontend/main.js',
+  output: { path: '/' }
+});
+
+app.use(webpackDevMiddleware(compiler, {}));
+
 app.listen(port);
 console.log('Magic happens on port ' + port);
