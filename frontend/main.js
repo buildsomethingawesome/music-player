@@ -2,7 +2,13 @@
 
 var React = require('react');
 
+var MusicPlayerApp = React.createClass({
+  render: function() {
+    return <button className="btn btn-primary">Play</button>;
+  }
+})
+
 React.renderComponent(
-  <h1>Hello, world!</h1>,
+  <MusicPlayerApp/>,
   document.getElementById('root')
 );
