@@ -13,6 +13,17 @@ router.post('/play', function() {
   });
 });
 
+router.get('/songs', function(request, response) {
+  var songs = [
+    { artist: 'Carl Sonny Leyland Trio', title: 'This Is The Blues' },
+    { artist: 'Carl Sonny Leyland Trio', title: 'Rat Catcher\'s Blues' },
+    { artist: 'Carsie Blanton', title: 'Azelea' },
+    { artist: 'Josh Fialkoff', title: 'Is You Is or Is You Ain\'t My Baby' },
+    { artist: 'Natasha Duchene', title: 'Michael' },
+    ];
+  response.send(songs);
+});
+
 app.use('/api', router);
 app.use('/', express.static('public'));
 

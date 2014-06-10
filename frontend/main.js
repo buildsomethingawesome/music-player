@@ -4,20 +4,22 @@ var React = require('react');
 var httpinvoke = require('httpinvoke');
 
 var MusicPlayerApp = React.createClass({
+  getInitialState: function() {
+    return { songs: [] };
+  },
+  componentWillMount: function() {
+    httpinvoke('/api/songs', 'GET').then(function(response) {
+      var songs = JSON.parse(response.body);
+      this.setState({ songs: songs });
+    }.bind(this));
+  },
   play: function() {
     httpinvoke('/api/play', 'POST');
   },
   render: function() {
-    var songs = [
-    { artist: 'Carl Sonny Leyland Trio', title: 'This Is The Blues' },
-    { artist: 'Carl Sonny Leyland Trio', title: 'Rat Catcher\'s Blues' },
-    { artist: 'Carsie Blanton', title: 'Azelea' },
-    { artist: 'Josh Fialkoff', title: 'Is You Is or Is You Ain\'t My Baby' },
-    ];
-    
     var listItems = [];
-    songs.forEach(function(song) {
-      listItems.push(<li className="list-group-item"><b>{song.title}</b> - {song.artist}</li>);
+    this.state.songs.forEach(function(song, i) {
+      listItems.push(<li className="list-group-item" key={i}><b>{song.title}</b> - {song.artist}</li>);
     });
     
     return <div>
