@@ -13,14 +13,33 @@ router.post('/play', function() {
   });
 });
 
+var songs = [];
+
+var dir = require('node-dir');
+var id3 = require('id3js');
+
+function endsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+dir.paths("/Users/avh4/Music", true, function(err, paths) {
+  if (err) throw err;
+  paths.forEach(function(path) {
+    if (!endsWith(path, ".mp3")) return;
+    id3({ file: path, type: id3.OPEN_LOCAL }, function(err, tags) {
+      if (err) throw err;
+      console.log("Loaded song: " + path);
+      songs.push({
+        title: tags.title,
+        artist: tags.artist,
+        album: tags.album,
+        year: tags.year
+      });
+    });      
+  });
+});
+
 router.get('/songs', function(request, response) {
-  var songs = [
-    { artist: 'Carl Sonny Leyland Trio', title: 'This Is The Blues' },
-    { artist: 'Carl Sonny Leyland Trio', title: 'Rat Catcher\'s Blues' },
-    { artist: 'Carsie Blanton', title: 'Azelea' },
-    { artist: 'Josh Fialkoff', title: 'Is You Is or Is You Ain\'t My Baby' },
-    { artist: 'Natasha Duchene', title: 'Michael' },
-    ];
   response.send(songs);
 });
 
