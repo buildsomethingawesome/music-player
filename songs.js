@@ -17,10 +17,12 @@ dir.paths(MUSIC_DIR, true, function(err, paths) {
       if (err) throw err;
       console.log("Loaded song: " + path);
       songs.push({
+        id: songs.length,
         title: tags.title,
         artist: tags.artist,
         album: tags.album,
-        year: tags.year
+        year: tags.year,
+        filename: path
       });
     });      
   });

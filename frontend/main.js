@@ -12,17 +12,16 @@ var MusicPlayerApp = React.createClass({
       this.setState({ songs: songs });
     }.bind(this));
   },
-  play: function() {
-    http.post('/api/play');
+  play: function(song) {
+    http.post('/api/play', {songId: song.id});
   },
   render: function() {
     var listItems = [];
     this.state.songs.forEach(function(song, i) {
-      listItems.push(<li className="list-group-item" key={i}><b>{song.title}</b> - {song.artist}</li>);
-    });
+      listItems.push(<li className="list-group-item" key={i}><button className="btn btn-primary btn-xs pull-left" onClick={this.play.bind(this, song)}>Play</button><b>{song.title}</b> - {song.artist}</li>);
+    }, this);
     
     return <div>
-      <button className="btn btn-primary" onClick={this.play}>Play</button>
       <ul className="list-group">{listItems}</ul>
     </div>;
   }

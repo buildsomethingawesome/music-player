@@ -4,10 +4,10 @@ var child_process = require('child_process');
 
 var api = express.Router();
 
-api.post('/play', function() {
-  child_process.exec('afplay boogie.mp3', function() {
-    console.log('Done playing!');
-  });
+api.post('/play', function(request, response) {
+  console.log('Playing ' + songs[request.body.songId].filename);
+  child_process.spawn('afplay', [songs[request.body.songId].filename]);
+  response.send();
 });
 
 api.get('/songs', function(request, response) {

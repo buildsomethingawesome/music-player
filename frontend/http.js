@@ -1,9 +1,13 @@
 var request = require('superagent');
 var Q = require('q');
 
-function doRequest(method, url) {
+function doRequest(method, url, body) {
   var defer = Q.defer();
-  method(url).end(function(err, response) {
+  var req = method(url)
+  if (body) {
+    req.send(body);
+  }
+  req.end(function(err, response) {
     if (err) {
       defer.reject(err);
     } else {
@@ -17,6 +21,6 @@ exports.get = function(url) {
   return doRequest(request.get, url);
 }
 
-exports.post = function(url) {
-  return doRequest(request.post, url);
+exports.post = function(url, body) {
+  return doRequest(request.post, url, body);
 }
