@@ -12,11 +12,12 @@
   "dependencies": {
     "envify": "^1.2.1",
     "express": "^4.4.1",
-    "httpinvoke": "^1.1.4",
     "id3js": "^1.1.3",
     "jsx-loader": "^0.10.2",
     "node-dir": "^0.1.5",
+    "q": "^1.0.1",
     "react": "^0.10.0",
+    "superagent": "^0.18.0",
     "webpack": "^1.3.0-beta5",
     "webpack-dev-middleware": "^1.0.8"
   }

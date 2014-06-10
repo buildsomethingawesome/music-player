@@ -1,20 +1,19 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var httpinvoke = require('httpinvoke');
+var http = require('./http');
 
 var MusicPlayerApp = React.createClass({
   getInitialState: function() {
     return { songs: [] };
   },
   componentWillMount: function() {
-    httpinvoke('/api/songs', 'GET').then(function(response) {
-      var songs = JSON.parse(response.body);
+    http.get('/api/songs').then(function(songs) {
       this.setState({ songs: songs });
     }.bind(this));
   },
   play: function() {
-    httpinvoke('/api/play', 'POST');
+    http.post('/api/play');
   },
   render: function() {
     var listItems = [];
