@@ -1,3 +1,5 @@
+var MUSIC_DIR = "/Users/avh4/Music";
+
 var child_process = require('child_process');
 
 var express = require('express');
@@ -22,7 +24,7 @@ function endsWith(str, suffix) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
-dir.paths("/Users/avh4/Music", true, function(err, paths) {
+dir.paths(MUSIC_DIR, true, function(err, paths) {
   if (err) throw err;
   paths.forEach(function(path) {
     if (!endsWith(path, ".mp3")) return;
